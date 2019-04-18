@@ -1,0 +1,2 @@
+[ERROR] Not supported language "python" [0]
+[WARN] Supported languages:  mssql   mysql   oraclesql 
