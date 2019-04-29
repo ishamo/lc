@@ -12,4 +12,14 @@ class Solution(object):
         :type postorder: List[int]
         :rtype: TreeNode
         """
-        
+        if not inorder or not postorder: return None
+        node = TreeNode(postorder[-1])
+        idx = inorder.index(node.val)
+        postorder.pop(-1)
+        node.left = self.buildTree(inorder[0:idx], [i for i in postorder if i in inorder[0:idx]])
+        node.right = self.buildTree(inorder[idx+1:], [i for i in postorder if i in inorder[idx+1:]])
+        return node
+
+
+# [9,3,15,20,7]
+# [9,15,7,20,3]
