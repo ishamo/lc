@@ -1,3 +1,4 @@
+# coding: utf-8
 class Solution(object):
     def minSwap(self, A, B):
         """
@@ -5,30 +6,26 @@ class Solution(object):
         :type B: List[int]
         :rtype: int
         """
-        if not A: return 0
-        results = []
-        self.doswap(A, B, 0, 0, results)
-        return min(results)
+        swap, keep = [99999999] * len(A), [99999999] * len(A)
+        swap[0], keep[0] = 1, 0
+        for i in range(1, len(A)):
 
-    def doswap(self, A, B, cnt, i, results):
-        _A, _B = A[:], B[:]
-        if i == len(A) - 1:
-            if self.isValid(_A) and self.isValid(_B): results.append(cnt)
-            else:
-                _A[i], _B[i] = _B[i], _A[i]
-                if self.isValid(_A) and self.isValid(_B): results.append(cnt+1)
-        else:
-            self.doswap(_A, _B, cnt, i+1, results)
-            _A[i], _B[i] = _B[i], _A[i]
-            self.doswap(_A, _B, cnt+1, i+1, results)
+            if A[i]>A[i-1] and B[i]>B[i-1]:
+                swap[i] = swap[i-1] + 1
+                keep[i] = keep[i-1]
 
-    def isValid(self, array):
-        if not array: return True
-        for i in range(1, len(array)):
-            if not array[i] > array[i-1]: return False
-        return True
-A, B = [1,2,4,8,10,12,14,15,16,18,20,24,26,27,32,33,35,36,39,40], [0,5,6,8,10,13,14,15,17,21,23,25,26,27,30,32,34,37,38,39]
+            if A[i]>B[i-1] and B[i]>A[i-1]:
+                swap[i] = min(swap[i], keep[i-1]+1)
+                keep[i] = min(keep[i], swap[i-1])
+
+        return min(swap[-1], keep[-1])
+
+
+# A, B = [1,2,4,8,10,12,14,15,16,18,20,24,26,27,32,33,35,36,39,40], [0,5,6,8,10,13,14,15,17,21,23,25,26,27,30,32,34,37,38,39]
+# A, B = [1, 3, 5, 4], [1, 2, 3, 7]
+# A, B = [1, 4, 3, 4, 7], [1, 2, 5, 6, 5]
 #
 #
-s = Solution()
-print s.minSwap(A, B)
+# A, B = [0,3,5,8,9], [2,1,4,6,9]
+# s = Solution()
+# print s.minSwap(A, B)
