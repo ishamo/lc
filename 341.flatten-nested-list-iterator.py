@@ -30,20 +30,38 @@ class NestedIterator(object):
         Initialize your data structure here.
         :type nestedList: List[NestedInteger]
         """
-        
+        self.table = []
+
+        def scan(val):
+            if not val:
+                return
+            if isinstance(val, int):
+                self.table.append(val)
+            else:
+                for i in val:
+                    scan(i)
+        scan(nestedList)
+
+        self.iterator = 0
+
 
     def next(self):
         """
         :rtype: int
         """
-        
+        val = self.table[self.iterator]
+        self.iterator += 1
+        return val
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        
+        return len(self.table) > self.iterator
+
 
 # Your NestedIterator object will be instantiated and called as such:
+# nestedList = [[1,1],2,[1,1]]
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
+# print v
