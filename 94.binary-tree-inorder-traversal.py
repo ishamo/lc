@@ -11,4 +11,18 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        
+        ret = []
+        if not root: return ret
+
+        self.inorder(root, ret)
+        return ret
+
+    def inorder(self, root, ret):
+        if not root: return
+        if root.left:
+            self.inorder(root.left, ret)
+
+        ret.append(root.val)
+
+        if root.right:
+            self.inorder(root.right, ret)
