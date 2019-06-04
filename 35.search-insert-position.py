@@ -5,4 +5,7 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        
+        for idx, e in enumerate(nums):
+            if target <= e: return idx
+
+        return len(nums)
