@@ -10,4 +10,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        
+        if not head or not head.next: return head
+        p, q = head, None
+
+        while p:
+            q = p.next
+            while q and q.val == p.val:
+                q = q.next
+
+            p.next = q
+            p = q
+
+        return head
