@@ -11,4 +11,17 @@ class Solution(object):
         :type val: int
         :rtype: ListNode
         """
-        
+        if not head: return None
+
+        while head and head.val == val:
+            head = head.next
+
+        p = head
+        while p and p.next:
+            if p.next.val == val:
+                p.next = p.next.next
+            else:
+                p = p.next
+
+        return head
+# [1,2,2,1]
