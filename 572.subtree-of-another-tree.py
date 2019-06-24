@@ -12,4 +12,20 @@ class Solution(object):
         :type t: TreeNode
         :rtype: bool
         """
-        
+        if not t: return True
+        if not s: return False
+
+        if self.isSame(s, t): return True
+        else:
+            return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+
+        # return False
+
+    def isSame(self, one, other):
+        if not one and not other: return True
+        if one and other:
+            if not one.val == other.val: return False
+            return self.isSame(one.left, other.left) and self.isSame(one.right, other.right)
+        else:
+            return False
+
