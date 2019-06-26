@@ -13,4 +13,23 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        
+        if not root: return None
+        if root.val == p.val or root.val == q.val: return root
+
+        if root.left and root.right:
+            left = self.find_p_or_q(root.left, p, q)
+            right = self.find_p_or_q(root.right, p, q)
+            if left and right:
+                return root
+            elif left:
+                return self.lowestCommonAncestor(root.left, p, q)
+            elif right:
+                return self.lowestCommonAncestor(root.right, p, q)
+            else:
+                return None
+        elif root.left:
+            return self.find_p_or_q(root.left, p, q)
+        elif root.right:
+            return self.find_p_or_q(root.right, p, q)
+        else:
+            return None

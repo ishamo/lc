@@ -12,4 +12,11 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        
+        if not head or m <= n: return head
+
+        prev, cur = None, Head
+        start, end = 0, 0
+        while cur and start < m:
+
+
+# 1 -> 2 -> 3 -> 4 -> 8 -> 7 -> 6 -> 5 -> 9 -> None
