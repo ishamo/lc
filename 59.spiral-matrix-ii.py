@@ -4,15 +4,16 @@ class Solution(object):
         :type n: int
         :rtype: List[List[int]]
         """
-        board = [[ i for i in range(n)] for j in range(n) ]
+        board = [[ 0 for i in range(n)] for j in range(n)]
 
         x, y = 0, 0
-        val = 1
+        dx, dy = 0, 1
+        for i in range(1, n*n+1):
+            board[x][y] = i
+            if board[(x+dx)%n][(y+dy)%n]:
+                dx, dy = dy, -dx
 
-        dxdy = [(1,0), (0,1), (-1,0),(0,-1)]
+            x += dx
+            y += dy
 
-        while val < n*n:
-            board[x][y] = val
-            if x + y =
-
-            val += 1
+        return board
