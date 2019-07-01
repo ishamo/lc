@@ -8,24 +8,29 @@ class Solution(object):
         if not s: return result
         lens = len(s)
 
-        self.helper(s, 0, 1, lens-1, [], result)
+        self.helper(s, 0, [], result)
         return result
 
-    def helper(self, s, i, j, cut, current, result):
-        if not self.isvalid(s[i:j+1]): return
+    def helper(self, s, i, current, result):
+        # print 'i, current, result', i, current, result
+        if i == len(s):
+            result.append(current[:])  # 这里必须是current的一个副本，不然回溯到最后, current肯定会被清掉！！！
         else:
-            current = current[:] + [s[i:j+1]]
-            if j == cut:
-                result.append(current)
-                return
-            else:
-                for k in range(2, len(s)-1-j):
-                    self.helper(s, j+1, j+k, len(s)-1, current, result)
+            for j in range(i+1, len(s)+1):
+                if self.isvalid(s[i:j]):
+                    current.append(s[i:j])
+                    self.helper(s, j, current, result)
+                    current.pop(-1)
 
-    def isvalid(self, s, i, j):
-        while s[i] == s[j] and i < j:
+    def isvalid(self, s):
+        if not s: return False
+        lens = len(s)
+        i, j = 0, lens-1
+        while i < j and s[i] == s[j]:
             i += 1
             j -= 1
-
         return True if i >= j else False
-
+#
+#
+# s = Solution()
+# print s.partition('aab')
