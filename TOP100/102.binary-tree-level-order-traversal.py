@@ -11,4 +11,18 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        
+        result = []
+        if not root: return result
+        cache = [root]
+        while cache:
+            result.append([item.val for item in cache])
+            lenc = len(cache)
+            for i in cache[:lenc]:
+                if i.left:
+                    cache.append(i.left)
+                if i.right:
+                    cache.append(i.right)
+
+            cache = cache[lenc:]
+
+        return result
