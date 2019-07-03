@@ -11,4 +11,16 @@ class Solution(object):
         :type root: TreeNode
         :rtype: None Do not return anything, modify root in-place instead.
         """
-        
+        self.helper(root)
+
+    def helper(self, root):
+        if not root: return None
+        tmp = self.helper(root.right)
+        root.right = self.helper(root.left)
+        root.left = None
+        p = root
+        while p.right:
+            p = p.right
+
+        p.right = tmp
+        return root
