@@ -11,14 +11,21 @@ class Solution(object):
         :type root: TreeNode
         :rtype: TreeNode
         """
-        if not root: return root
+        self.sm = 0
+        return self.helper(root)
+
+    def helper(self, root):
+        if not root: return None
 
         if root.right:
-            self.convertBST(root.right)
-            root.val += root.right.val
+            self.helper(root.right)
+
+        self.sm += root.val
+        root.val = self.sm
 
         if root.left:
-            self.convertBST(root.left)
-            root.left.val += root.val
+            self.helper(root.left)
 
         return root
+
+
