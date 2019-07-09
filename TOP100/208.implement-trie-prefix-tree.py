@@ -4,7 +4,7 @@ class Trie(object):
         """
         Initialize your data structure here.
         """
-        
+        self.root = {}
 
     def insert(self, word):
         """
@@ -12,7 +12,12 @@ class Trie(object):
         :type word: str
         :rtype: None
         """
-        
+        node = self.root
+        for c in word:
+            node.setdefault(c, {})
+            node = node[c]
+
+        node['#'] = True
 
     def search(self, word):
         """
@@ -20,7 +25,13 @@ class Trie(object):
         :type word: str
         :rtype: bool
         """
-        
+        node = self.root
+        for c in word:
+            if c not in node: return False
+            node = node[c]
+
+        if '#' not in node: return False
+        return True
 
     def startsWith(self, prefix):
         """
@@ -28,7 +39,11 @@ class Trie(object):
         :type prefix: str
         :rtype: bool
         """
-        
+        node = self.root
+        for p in prefix:
+            if p not in node: return False
+            node = node[p]
+        return True
 
 
 # Your Trie object will be instantiated and called as such:
