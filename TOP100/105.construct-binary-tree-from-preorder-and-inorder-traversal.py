@@ -12,4 +12,10 @@ class Solution(object):
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        
+        if not preorder or not inorder: return None
+        rootval = preorder.pop(0)
+        root = TreeNode(rootval)
+        index = inorder.index(root.val)
+        root.left = self.buildTree(preorder, inorder[0:index])
+        root.right = self.buildTree(preorder, inorder[index+1:])
+        return root
