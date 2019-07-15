@@ -4,4 +4,6 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        
+        ns = set(nums)
+        return (sum(nums)-sum(ns))/(len(nums)-len(ns))
+
